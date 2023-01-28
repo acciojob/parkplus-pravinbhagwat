@@ -23,32 +23,35 @@ public class PaymentServiceImpl implements PaymentService {
 //        Additionally, the system should validate the payment mode entered by the user and only accept "cash", "card", or "UPI" as valid modes of payment. Note that the characters of these strings can be in uppercase or lowercase. For example "cAsH" is a valid mode of payment. If the user enters a mode other than these, the system should throw an exception "Payment mode not detected"
 //        The system should also update the payment attributes for the reservation after a successful payment.
 
-        if (!reservationRepository2.findById(reservationId).isPresent()) return null;
-        mode = mode.toUpperCase();
-        PaymentMode givenPaymentMode;
-        if(mode.equals("CASH") ) {
-          givenPaymentMode = PaymentMode.CASH;
-        }
-        else if(mode.equals("CARD")){
-            givenPaymentMode = PaymentMode.CARD;
-        }
-        else if (mode.equals("UPI")){
-            givenPaymentMode = PaymentMode.UPI;
-        }else {
-            throw new Exception("Payment mode not detected");
-        }
+        try {
+            mode = mode.toUpperCase();
+            PaymentMode givenPaymentMode;
+            if(mode.equals("CASH") ) {
+                givenPaymentMode = PaymentMode.CASH;
+            }
+            else if(mode.equals("CARD")){
+                givenPaymentMode = PaymentMode.CARD;
+            }
+            else if (mode.equals("UPI")){
+                givenPaymentMode = PaymentMode.UPI;
+            }else {
+                throw new Exception("Payment mode not detected");
+            }
 
-        Reservation reservation = reservationRepository2.findById(reservationId).get();
+            Reservation reservation = reservationRepository2.findById(reservationId).get();
 
-        int resBill = reservation.getSpot().getPricePerHour()*reservation.getNumberOfHours();
+            int resBill = reservation.getSpot().getPricePerHour()*reservation.getNumberOfHours();
 
-        if(amountSent < resBill) {
-            throw new Exception("Insufficient Amount");
+            if(amountSent < resBill) {
+                throw new Exception("Insufficient Amount");
+            }
+
+            Payment newPayment = new Payment(Boolean.TRUE, givenPaymentMode, reservation);
+            reservation.setPayment(newPayment);
+            reservationRepository2.save(reservation);
+            return newPayment;
+        }catch (Exception e) {
+            return null;
         }
-
-        Payment newPayment = new Payment(Boolean.TRUE, givenPaymentMode, reservation);
-        reservation.setPayment(newPayment);
-        reservationRepository2.save(reservation);
-        return newPayment;
     }
 }
