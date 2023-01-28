@@ -80,7 +80,7 @@ public class ReservationServiceImpl implements ReservationService {
             }
         }
 
-        if(selectedSpot == null) throw new Exception("Cannot make reservation");
+        if(selectedSpot == null) return null;
 
         Reservation reservation = new Reservation(timeInHours, user, selectedSpot);
         selectedSpot.setOccupied(Boolean.TRUE);
