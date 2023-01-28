@@ -27,8 +27,13 @@ public class ReservationServiceImpl implements ReservationService {
 //        The price per hour for each spot is different, and the vehicle can only be parked in a spot with a type that is equal to or larger than the given vehicle.
 //        In the event that the parking lot is not found, the user is not found or no spot is available, the system should throw an exception indicating that the reservation cannot be made.
 
+        if(!userRepository3.findById(userId).isPresent() || !parkingLotRepository3.findById(parkingLotId).isPresent()) {
+            return null;
+        }
+
         User user = userRepository3.findById(userId).get();
         ParkingLot parkingLot = parkingLotRepository3.findById(parkingLotId).get();
+
 
 //        Getting the spot list from parkingLot
         List<Spot> spotList = parkingLot.getSpotList();
