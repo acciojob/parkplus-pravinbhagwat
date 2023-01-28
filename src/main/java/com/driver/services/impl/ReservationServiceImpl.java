@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 //        Getting the spot list from parkingLot
         List<Spot> spotList = parkingLot.getSpotList();
-        if(spotList.size() == 0) throw new Exception("Reservation cannot be made");
+        if(spotList.size() == 0) throw new Exception("Cannot make reservation");
 
 
         SpotType requiredSpotType = null;
@@ -80,7 +80,7 @@ public class ReservationServiceImpl implements ReservationService {
             }
         }
 
-        if(selectedSpot == null) throw new Exception("Reservation cannot be made");
+        if(selectedSpot == null) throw new Exception("Cannot make reservation");
 
         Reservation reservation = new Reservation(timeInHours, user, selectedSpot);
         selectedSpot.setOccupied(Boolean.TRUE);

@@ -35,7 +35,7 @@ public class PaymentServiceImpl implements PaymentService {
         else if (mode.equals("UPI")){
             givenPaymentMode = PaymentMode.UPI;
         }else {
-            throw new Exception("Insufficient Amount");
+            throw new Exception("Payment mode not detected");
         }
 
         Reservation reservation = reservationRepository2.findById(reservationId).get();
