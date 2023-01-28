@@ -1,6 +1,7 @@
 package com.driver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,13 +19,14 @@ public class Spot {
     private ParkingLot parkingLot;
 
     @OneToMany(mappedBy = "spot", cascade = CascadeType.ALL)
-    private List<Reservation> reservationList;
+    private List<Reservation> reservationList = new ArrayList<>();
 
     public Spot() {
     }
 
     public Spot(int pricePerHour) {
         this.pricePerHour = pricePerHour;
+        this.occupied = false;
     }
 
     public int getId() {
