@@ -8,7 +8,7 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int numOfHours;
+    private int numberOfHours;
     @ManyToOne
     @JoinColumn
     private User user;
@@ -22,8 +22,8 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int numOfHours, User user, Spot spot) {
-        this.numOfHours = numOfHours;
+    public Reservation(int numberOfHours, User user, Spot spot) {
+        this.numberOfHours = numberOfHours;
         this.user = user;
         this.spot = spot;
     }
@@ -36,12 +36,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getNumOfHours() {
-        return numOfHours;
+    public int getNumberOfHours() {
+        return numberOfHours;
     }
 
-    public void setNumOfHours(int numOfHours) {
-        this.numOfHours = numOfHours;
+    public void setNumberOfHours(int numberOfHours) {
+        this.numberOfHours = numberOfHours;
     }
 
     public User getUser() {
