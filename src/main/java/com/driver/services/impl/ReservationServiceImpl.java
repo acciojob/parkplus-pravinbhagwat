@@ -28,7 +28,7 @@ public class ReservationServiceImpl implements ReservationService {
 //        In the event that the parking lot is not found, the user is not found or no spot is available, the system should throw an exception indicating that the reservation cannot be made.
 
         if(!userRepository3.findById(userId).isPresent() || !parkingLotRepository3.findById(parkingLotId).isPresent()) {
-            throw new Exception("Cannot make reservation");
+            return null;
         }
 
         User user = userRepository3.findById(userId).get();
@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 //        Getting the spot list from parkingLot
         List<Spot> spotList = parkingLot.getSpotList();
-        if(spotList.size() == 0) throw new Exception("Cannot make reservation");
+        if(spotList.size() == 0) return null;
 
 
         SpotType requiredSpotType = null;
